@@ -240,6 +240,7 @@ body {
 	height: 100%;
 	object-fit: contain;
 	transition: transform 0.5s ease;
+	opacity: 0; /* Hidden initially, animated by GSAP */
 }
 
 /* Text Content */
@@ -373,7 +374,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
-	color: white;
+	color: #ccc;
 	text-decoration: none;
 	font-size: 1.2rem;
 	transition: transform 0.3s ease;
@@ -426,8 +427,9 @@ body {
 	.content-card {
 		flex-direction: column;
 		text-align: center;
-		padding: 3rem;
+		padding: 2rem; /* Reduced padding */
 		gap: 2rem;
+		width: 90%; /* Ensure it fits */
 	}
 
 	.content-card.reverse {
@@ -436,11 +438,34 @@ body {
 
 	.image-wrapper {
 		max-width: 100%;
-		height: 300px;
+		height: 250px; /* Smaller image height */
 	}
 
+	.text-content h2 {
+		font-size: 2.5rem; /* Smaller heading */
+	}
+
+	.text-content p {
+		font-size: 1rem;
+	}
+
+	/* Enable Thumbnails on Mobile */
 	.thumbnail-grid {
-		display: none; /* Hide thumbnails on smaller screens to save space */
+		display: flex; /* Show thumbnails */
+		flex-direction: row;
+		overflow-x: auto; /* Horizontal scroll */
+		width: 100%;
+		max-width: 100%;
+		gap: 10px;
+		padding-bottom: 10px; /* Space for scrollbar */
+		justify-content: flex-start; /* Align start for scrolling */
+	}
+
+	.thumbnail-card {
+		min-width: 120px; /* Fixed width for scrolling items */
+		aspect-ratio: 9/16;
+		opacity: 1 !important; /* Force visible since GSAP is disabled on mobile */
+		transform: scale(1) !important; /* Reset scale */
 	}
 
 	.text-content {
@@ -449,5 +474,80 @@ body {
 
 	.feature-list li {
 		justify-content: center;
+		font-size: 1rem;
+	}
+
+	/* Hero Adjustments */
+	.logo-img {
+		max-width: 200px;
+	}
+	.hero-subtitle {
+		font-size: 1.2rem !important;
+	}
+	.tagline {
+		font-size: 1.2rem;
+	}
+
+	/* Socials Adjustments */
+	.social-content h2 {
+		font-size: 3rem;
+	}
+	.social-links {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr); /* 4 icons per row */
+		gap: 1.5rem;
+		justify-items: center;
+	}
+	.social-icon i {
+		width: 4rem; /* Smaller icons to fit 4 in a row */
+		height: 4rem;
+		font-size: 1.5rem;
+	}
+
+	/* Disable Stacking Effect on Mobile (Natural Scroll) */
+	.scroll-container {
+		display: none; /* Remove fake scroll height */
+	}
+
+	.pinned-container {
+		position: relative; /* Not fixed */
+		height: auto;
+		display: block; /* Stack vertically */
+		overflow: visible;
+	}
+
+	.panel {
+		position: relative; /* Not absolute */
+		height: auto;
+		min-height: 100vh; /* Full screen sections */
+		opacity: 1 !important; /* Always visible */
+		visibility: visible !important;
+		padding: 4rem 0; /* Add vertical padding */
+		flex-direction: column;
+		overflow: hidden; /* Clip the scaled background image */
+	}
+
+	.panel-bg {
+		position: absolute; /* Keep background absolute relative to panel */
+	}
+}
+
+@media (max-width: 590px) {
+	.image-wrapper {
+		max-width: 200px;
+		height: 180px; /* Smaller image height */
+	}
+
+	.content-card {
+		padding: 16px;
+		border-radius: 20px;
+	}
+
+	.hero-content {
+		padding: 0; /* Add bottom padding */
+	}
+
+	.social-links {
+		gap: 1rem;
 	}
 }
