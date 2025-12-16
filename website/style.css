@@ -324,13 +324,18 @@ body {
 }
 
 .social-icon i {
-	font-size: 4rem;
-	background: rgba(255, 255, 255, 0.15);
-	padding: 2rem;
+	font-size: 3.5rem; /* Slightly smaller font to fit nicely */
+	width: 8rem; /* Fixed width */
+	height: 8rem; /* Fixed height */
+	display: flex; /* Flexbox for centering */
+	justify-content: center;
+	align-items: center;
+	background: transparent; /* Transparent default */
 	border-radius: 50%;
 	backdrop-filter: blur(10px);
 	transition: all 0.3s ease;
-	border: 2px solid rgba(255, 255, 255, 0.2);
+	border: 2px solid #ccc; /* Grey outline */
+	color: #ccc; /* Grey icon */
 }
 
 .social-icon:hover {
@@ -340,7 +345,19 @@ body {
 .social-icon:hover i {
 	background: white;
 	color: var(--primary-red);
+	border-color: white; /* White border on hover */
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.white-outline i {
+	color: white !important;
+	border: 2px solid #fff; /* Grey outline */
+	border-color: white; /* White border on hover */
+}
+.white-outline:hover i {
+	color: var(--primary-red) !important;
+	border: 2px solid #fff; /* Grey outline */
+	border-color: white; /* White border on hover */
 }
 
 /* Responsive */
