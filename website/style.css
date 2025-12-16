@@ -94,12 +94,21 @@ body {
 	padding: 0 2rem;
 }
 
-.logo {
-	font-size: 5rem;
-	font-weight: 700;
-	color: var(--primary-red);
-	letter-spacing: -2px;
-	margin-bottom: 0.5rem;
+.logo-img {
+	max-width: 300px; /* Adjust size as needed */
+	width: 100%;
+	height: auto;
+	margin-bottom: 1rem;
+	filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.logo-img-small {
+	max-width: 150px;
+	width: 100%;
+	height: auto;
+	margin-bottom: 1rem;
+	filter: brightness(0) invert(1); /* Make it white for the red background */
+	opacity: 0.9;
 }
 
 .tagline {
@@ -358,6 +367,11 @@ body {
 	color: var(--primary-red) !important;
 	border: 2px solid #fff; /* Grey outline */
 	border-color: white; /* White border on hover */
+}
+
+.logo-img-white-div {
+	border-radius: 40px;
+	background: white;
 }
 
 /* Responsive */
