@@ -1,108 +1,74 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const panels = gsap.utils.toArray(".panel");
+
 // Initialize Timeline
-const tl = gsap.timeline({
+// We use the scroll of the body (driven by .scroll-container height) to scrub this timeline.
+// .pinned-container is fixed in CSS, so we don't need to pin it here.
+let tl = gsap.timeline({
 	scrollTrigger: {
 		trigger: ".scroll-container",
 		start: "top top",
-		end: "bottom bottom",
+		end: "+=4000", // Total scroll distance
 		scrub: 1,
-		pin: ".pinned-container",
-		// markers: true // Uncomment for debugging
+		// pin: true // REMOVED: .pinned-container is fixed in CSS
 	},
 });
 
-// Animation Sequence
+// Helper to animate thumbnails
+function getThumbnails(panel) {
+	return panel.querySelectorAll(".thumbnail-card");
+}
 
-// 1. Hero Exit
-tl.to(".hero", {
-	opacity: 0,
-	scale: 0.8,
-	duration: 1,
-	ease: "power2.inOut",
-})
+// Animate panels
+panels.forEach((panel, i) => {
+	if (i === 0) return; // Skip hero, it's already visible
 
-	// 2. Food Discovery Enter
-	.fromTo(
-		".food-discovery",
-		{ opacity: 0, scale: 1.2, visibility: "hidden" },
-		{
-			opacity: 1,
-			scale: 1,
-			visibility: "visible",
-			duration: 1,
-			ease: "elastic.out(1, 0.75)",
-		}
-	)
-	// Food Discovery Exit
-	.to(
-		".food-discovery",
-		{
-			opacity: 0,
-			x: -100,
-			duration: 1,
-			ease: "power2.inOut",
-		},
-		"+=1"
-	) // Hold for a bit
-
-	// 3. Recipes Enter
-	.fromTo(
-		".recipes",
-		{ opacity: 0, x: 100, visibility: "hidden" },
-		{
-			opacity: 1,
-			x: 0,
-			visibility: "visible",
-			duration: 1,
-			ease: "elastic.out(1, 0.75)",
-		}
-	)
-	// Recipes Exit
-	.to(
-		".recipes",
-		{
-			opacity: 0,
-			y: -100,
-			duration: 1,
-			ease: "power2.inOut",
-		},
-		"+=1"
-	)
-
-	// 4. Travel Enter
-	.fromTo(
-		".travel",
-		{ opacity: 0, y: 100, visibility: "hidden" },
-		{
-			opacity: 1,
-			y: 0,
-			visibility: "visible",
-			duration: 1,
-			ease: "elastic.out(1, 0.75)",
-		}
-	)
-	// Travel Exit
-	.to(
-		".travel",
-		{
-			opacity: 0,
-			scale: 1.5,
-			duration: 1,
-			ease: "power2.inOut",
-		},
-		"+=1"
-	)
-
-	// 5. Socials Enter
-	.fromTo(
-		".socials",
-		{ opacity: 0, scale: 0.5, visibility: "hidden" },
-		{
-			opacity: 1,
-			scale: 1,
-			visibility: "visible",
-			duration: 1,
-			ease: "elastic.out(1, 0.75)",
-		}
+	// Slide in the panel from the bottom
+	// We ensure autoAlpha is 1 so it becomes visible
+	tl.fromTo(
+		panel,
+		{ yPercent: 100, autoAlpha: 1 },
+		{ yPercent: 0, autoAlpha: 1, ease: "none", duration: 1 }
 	);
+
+	// Animate content inside AFTER the panel arrives
+
+	// Thumbnails "Rotate In"
+	const thumbnails = getThumbnails(panel);
+	if (thumbnails.length > 0) {
+		tl.fromTo(
+			thumbnails,
+			{ scale: 0, rotation: -45, opacity: 0 },
+			{
+				scale: 1,
+				rotation: 0,
+				opacity: 1,
+				stagger: 0.1,
+				duration: 0.5,
+				ease: "back.out(1.7)",
+			},
+			"<+=0.2" // Start shortly after panel starts sliding in
+		);
+	}
+
+	// Text and Image "Pop"
+	const content = panel.querySelector(".content-card");
+	if (content) {
+		tl.from(content, { scale: 0.9, opacity: 0.5, duration: 0.5 }, "<");
+	}
+
+	// Add a small pause/gap before the next panel starts
+	tl.to({}, { duration: 0.5 });
+});
+
+// Hero Animation (Fade out as Food slides over)
+tl.to(
+	".hero-content",
+	{
+		scale: 0.8,
+		opacity: 0,
+		duration: 0.5,
+	},
+	0
+); // Start at absolute 0
