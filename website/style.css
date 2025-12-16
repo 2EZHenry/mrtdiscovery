@@ -76,6 +76,36 @@ body {
 	z-index: 5;
 }
 
+/* Panel Backgrounds */
+.panel-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-size: cover;
+	background-position: center;
+	filter: blur(30px) brightness(0.8); /* Heavy blur and slight darken */
+	transform: scale(1.1); /* Scale up to hide blur edges */
+}
+
+.food-discovery .panel-bg {
+	background-image: url("assets/bg_food.png");
+}
+
+.recipes .panel-bg {
+	background-image: url("assets/bg_cooking.png");
+}
+
+.travel .panel-bg {
+	background-image: url("assets/bg_travel.png");
+}
+
+.socials .panel-bg {
+	background-image: url("assets/bg_socials.png");
+}
+
 /* Hero Section */
 .hero-bg {
 	position: absolute;
