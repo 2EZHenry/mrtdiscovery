@@ -45,16 +45,16 @@ ScrollTrigger.matchMedia({
 			if (thumbnails.length > 0) {
 				tl.fromTo(
 					thumbnails,
-					{ scale: 0, rotation: -45, opacity: 0 },
+					{ scale: 0, rotation: i % 2 === 0 ? 45 : -45, opacity: 0 },
 					{
 						scale: 1,
 						rotation: 0,
 						opacity: 1,
 						stagger: 0.1,
-						duration: 0.5,
-						ease: "back.out(1.7)",
+						duration: 1,
+						ease: "back.out(1.2)",
 					},
-					"<+=0.2" // Start shortly after panel starts sliding in
+					"<+=0.3" // Start shortly after panel starts sliding in
 				);
 			}
 
@@ -73,7 +73,7 @@ ScrollTrigger.matchMedia({
 						{
 							scale: 0.5,
 							opacity: 0,
-							rotation: -45,
+							rotation: i % 2 === 0 ? 10 : -10,
 						},
 						{
 							scale: 1,
@@ -84,6 +84,15 @@ ScrollTrigger.matchMedia({
 						},
 						"<+=0.5" // Overlap more with the panel slide
 					);
+
+					// Continuous Float Animation
+					gsap.to(image, {
+						y: -15,
+						duration: 2.5,
+						yoyo: true,
+						repeat: -1,
+						ease: "sine.inOut",
+					});
 				}
 
 				// 2. Title Slide Up
