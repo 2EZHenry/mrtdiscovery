@@ -328,6 +328,7 @@ body {
 	cursor: pointer;
 	transition: all 0.3s ease;
 	box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4);
+	opacity: 0; /* Hidden initially, animated by GSAP */
 }
 
 .btn:hover {
@@ -442,6 +443,10 @@ body {
 	}
 
 	.image-wrapper img {
+		opacity: 1 !important; /* Force visible on mobile */
+	}
+
+	.btn {
 		opacity: 1 !important; /* Force visible on mobile */
 	}
 

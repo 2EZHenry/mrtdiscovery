@@ -126,11 +126,15 @@ ScrollTrigger.matchMedia({
 
 				// 4. Button Pop
 				if (btn) {
-					tl.from(
+					tl.fromTo(
 						btn,
 						{
-							scale: 0.8, // Start slightly smaller, not 0
+							scale: 0.8, // Start slightly smaller
 							opacity: 0,
+						},
+						{
+							scale: 1,
+							opacity: 1,
 							duration: 0.6,
 							ease: "power1.out",
 						},
